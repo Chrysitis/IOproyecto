@@ -10,7 +10,8 @@ import { RutasCortasComponent } from './components/rutas-cortas/rutas-cortas.com
 const routes: Routes = [
   {path: '', component: MenuComponent},
   {path: 'problema-mochila', component: ProblemaMochilaComponent},
-  {path: 'rutas-cortas', component: RutasCortasComponent}
+  {path: 'rutas-cortas', component: RutasCortasComponent},
+  {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
 @NgModule({
