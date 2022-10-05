@@ -1,4 +1,6 @@
 <!-- Modal -->
+<app-header></app-header>
+
 <div
   class="modal fade"
   id="exampleModal"
@@ -32,35 +34,6 @@
   </div>
 </div>
 
-<div class="collapse" id="navbarToggleExternalContent">
-  <div class="bg-dark p-4">
-    <h5 class="text-white h4">Proyecto Investigacion de Operaciones</h5>
-    <h5 class="text-white h5">
-      <!-- <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="">
-          Mas información</a
-        >
-      </li> -->
-    </h5>
-  </div>
-</div>
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarToggleExternalContent"
-      aria-controls="navbarToggleExternalContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <h5 class="text-white h4">Investigación de Operaciones</h5>
-  </div>
-</nav>
-
 <div class="container mt-4">
   <div class="row row-cols-3 g-4 mx-md-5">
     <div class="col">
@@ -77,12 +50,7 @@
           <!--<p class="card-text">Algoritmo de análisis sobre grafos para encontrar el camino mínimo en grafos dirigidos con peso.</p>-->
         </div>
         <div class="card-footer">
-          <button
-            href=""
-            class="btn btn-light"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
+          <button href="" class="btn btn-light" routerLink="shortestPath">
             Ejecutar Algoritmo
           </button>
         </div>

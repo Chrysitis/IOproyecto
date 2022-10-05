@@ -1,0 +1,96 @@
+<app-header></app-header>
+
+<div class="container-lg">
+  <!-- Page title -->
+  <div class="d-flex justify-content-center">
+    <div class="card">
+      <h2 class="card-title" style="padding: 25px">
+        Floyd Algoritm: Shortest Paths between all pairs of vertices
+      </h2>
+    </div>
+  </div>
+  <!-- Vertex creation -->
+  <div class="d-flex justify-content-around" style="margin-top: 40px">
+    <form style="background-color: white">
+      <div>
+        <label for="text" style="margin-top: 10px">Inser vertex</label>
+        <div class="input-group mb-3" style="margin-top: 5px">
+          <input
+            id="vertexInput"
+            type="text"
+            #vertexInput
+            class="form-control"
+            placeholder="Vertex name"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="addVertex(vertexInput.value)"
+              (click)="vertexInput.value = ''"
+            >
+              Insert
+            </button>
+          </div>
+        </div>
+        <div>
+          <p #qnty>Current quantity of vertex: {{ getNodeQuantity() }}</p>
+        </div>
+      </div>
+      <!-- Vertex link creation -->
+      <div class="d-flex flex-column" style="margin-top: 5px">
+        <label for="text" style="margin-bottom: 15px">Inser vertex link</label>
+        <div>
+          <label for="text">From: </label>
+          <select class="form-control" id="vertexSelect" #vertextSelectOrigin>
+            <option *ngFor="let v of vertex">
+              {{ v }}
+            </option>
+          </select>
+
+          <label for="text">To: </label>
+          <select class="form-control" id="vertexSelect" #vertextSelectDestiny>
+            <option *ngFor="let v of vertex">
+              {{ v }}
+            </option>
+          </select>
+
+          <label for="text">Weight: </label>
+          <input
+            id="linkWeight"
+            type="number"
+            #linkWeight
+            class="form-control"
+            placeholder="Link weight"
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="Insert"
+            (click)="
+              addVertexLink(
+                vertextSelectOrigin.value,
+                vertextSelectDestiny.value,
+                linkWeight.value
+              )
+            "
+            (click)="linkWeight.value = ''"
+          >
+            Insert
+          </button>
+        </div>
+      </div>
+      <!-- File loading... -->
+      <div class="form-group">
+        <label for="graphFile">Or load file</label>
+        <input
+          type="file"
+          class="btn btn-light"
+          style="width: 250px"
+          id="exampleFormControlFile1"
+        />
+      </div>
+    </form>
+    <div>NOUP.</div>
+    <div>JEJE</div>
+  </div>
+</div>

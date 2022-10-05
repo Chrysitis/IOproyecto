@@ -5,12 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {MenuComponent} from './components/menu/menu.component';
 import { ProblemaMochilaComponent } from './components/problema-mochila/problema-mochila.component';
-import { RutasCortasComponent } from './components/rutas-cortas/rutas-cortas.component';
+import { shortestPathComponent } from './components/rutas-cortas/shortestPath.component';
 
 const routes: Routes = [
   {path: '', component: MenuComponent},
   {path: 'problema-mochila', component: ProblemaMochilaComponent},
-  {path: 'rutas-cortas', component: RutasCortasComponent},
+  {path: 'shortestPath', component: shortestPathComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

@@ -4,23 +4,28 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RutasCortasComponent } from './components/rutas-cortas/rutas-cortas.component';
+import { shortestPathComponent } from './components/rutas-cortas/shortestPath.component';
 import { ProblemaMochilaComponent } from './components/problema-mochila/problema-mochila.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { HeaderComponent } from './header/header.component';
+import { shortestPathService } from './components/rutas-cortas/shortestPath.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RutasCortasComponent,
+    shortestPathComponent,
     ProblemaMochilaComponent,
-    MenuComponent
+    MenuComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule
   ],
-  providers: [],
+  providers: [
+    shortestPathService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
