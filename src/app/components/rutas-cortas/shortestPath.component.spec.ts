@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RutasCortasComponent } from './shortestPath.component';
+import { shortestPathComponent } from './shortestPath.component';
 
-describe('RutasCortasComponent', () => {
-  let component: RutasCortasComponent;
-  let fixture: ComponentFixture<RutasCortasComponent>;
+describe('shortestPathComponent', () => {
+  let component: shortestPathComponent;
+  let fixture: ComponentFixture<shortestPathComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RutasCortasComponent ]
+      declarations: [ shortestPathComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RutasCortasComponent);
+    fixture = TestBed.createComponent(shortestPathComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
