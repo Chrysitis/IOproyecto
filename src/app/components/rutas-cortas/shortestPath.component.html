@@ -3,17 +3,17 @@
 <div class="container-lg">
   <!-- Page title -->
   <div class="d-flex justify-content-center">
-    <div class="card">
-      <h2 class="card-title" style="padding: 25px">
-        Floyd Algoritm: Shortest Paths between all pairs of vertices
+    <div class="card-dark">
+      <h2 class="card-title" style="padding: 15px">
+        <strong><em>Floyd Algoritm: Shortest Paths between all pairs of vertices</em></strong>
       </h2>
     </div>
   </div>
   <!-- Vertex creation -->
-  <div class="d-flex justify-content-around" style="margin-top: 40px">
-    <form style="background-color: white">
+  <div class="d-flex justify-content-around" style="margin-top: 25px">
+    <form>
       <div>
-        <label for="text" style="margin-top: 10px">Insert vertex</label>
+        <label for="text" style="margin-top: 10px"><strong>Insert vertex</strong></label>
         <div class="input-group mb-3" style="margin-top: 5px">
           <input
             id="vertexInput"
@@ -22,72 +22,72 @@
             class="form-control"
             placeholder="Vertex name"
           />
-          <div class="input-group-append">
             <button
-              class="btn btn-outline-secondary"
+              class="btn btn-dark"
               type="button"
+              id="button-addon2"
               (click)="addVertex(vertexInput.value)"
               (click)="vertexInput.value = ''"
             >
               Insert
             </button>
-          </div>
         </div>
         <div>
-          <p #qnty>Current quantity of vertex: {{ getNodeQuantity() }}</p>
+          <p #qnty><strong>Current quantity of vertex: {{ getNodeQuantity() }}</strong></p>
         </div>
       </div>
       <!-- Vertex link creation -->
       <div class="d-flex flex-column" style="margin-top: 5px">
-        <label for="text" style="margin-bottom: 15px">Inser vertex link</label>
+        <label for="text" style="margin-bottom: 10px"><strong>Insert vertex link</strong></label>
         <div>
-          <label for="text">From: </label>
+          <label for="text"><strong>From: </strong></label>
           <select class="form-control" id="vertexSelect" #vertextSelectOrigin>
             <option *ngFor="let v of vertex">
               {{ v }}
             </option>
           </select>
 
-          <label for="text">To: </label>
+          <label for="text"><strong>To: </strong></label>
           <select class="form-control" id="vertexSelect" #vertextSelectDestiny>
             <option *ngFor="let v of vertex">
               {{ v }}
             </option>
           </select>
 
-          <label for="text">Weight: </label>
-          <input
-            id="linkWeight"
-            type="number"
-            #linkWeight
-            class="form-control"
-            placeholder="Link weight"
-          />
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            (click)="
-              addVertexLink(
-                vertextSelectOrigin.value,
-                vertextSelectDestiny.value,
-                linkWeight.value
-              )
-            "
-            (click)="linkWeight.value = ''"
-          >
-            Insert
-          </button>
+          <label for="text" style="margin-top: 5px"><strong>Weight: </strong></label>
+          <div class="input-group">
+            <input
+              id="linkWeight"
+              type="number"
+              #linkWeight
+              class="form-control"
+              placeholder="Link weight"
+            />
+            <button
+              class="btn btn-dark"
+              type="button"
+              (click)="
+                addVertexLink(
+                  vertextSelectOrigin.value,
+                  vertextSelectDestiny.value,
+                  linkWeight.value
+                )
+              "
+              (click)="linkWeight.value = ''"
+            >
+              Insert
+            </button>
+          </div>
         </div>
       </div>
       <!-- File loading... -->
-      <div class="form-group">
-        <label for="graphFile">Or load file</label>
-        <input
-          type="file"
-          class="btn btn-light"
-          style="width: 250px"
-          id="exampleFormControlFile1"
-        />
+      <label for="graphFile" style="margin-top: 5px"><strong>Or load file</strong></label>
+      <div class="input-group">
+        <input type="file" 
+        class="form-control" 
+        id="inputGroupFile04" 
+        aria-describedby="inputGroupFileAddon04" 
+        ria-label="Upload">
       </div>
     </form>
     <div>NOUP.</div>
