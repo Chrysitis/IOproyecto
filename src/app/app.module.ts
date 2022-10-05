@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,16 +17,10 @@ import { shortestPathService } from './components/rutas-cortas/shortestPath.serv
     shortestPathComponent,
     ProblemaMochilaComponent,
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule
-  ],
-  providers: [
-    shortestPathService
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, NgbModule, MatTableModule],
+  providers: [shortestPathService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

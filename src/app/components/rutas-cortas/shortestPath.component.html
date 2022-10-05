@@ -13,27 +13,25 @@
   <div class="d-flex justify-content-around" style="margin-top: 25px">
     <form>
       <div>
+        <div class="d-flex justify-content-center">
+          <div class="card-dark">
+            <h2 class="card-title" style="padding: 15px">
+              <strong><em>Graph Creation</em></strong>
+            </h2>
+          </div>
+        </div>
         <label for="text" style="margin-top: 10px"><strong>Insert vertex</strong></label>
         <div class="input-group mb-3" style="margin-top: 5px">
-          <input
-            id="vertexInput"
-            type="text"
-            #vertexInput
-            class="form-control"
-            placeholder="Vertex name"
-          />
-            <button
-              class="btn btn-dark"
-              type="button"
-              id="button-addon2"
-              (click)="addVertex(vertexInput.value)"
-              (click)="vertexInput.value = ''"
-            >
-              Insert
-            </button>
+          <input id="vertexInput" type="text" #vertexInput class="form-control" placeholder="Vertex name" />
+          <button class="btn btn-dark" type="button" id="button-addon2" (click)="addVertex(vertexInput.value)"
+            (click)="vertexInput.value = ''">
+            Insert
+          </button>
         </div>
         <div>
-          <p #qnty><strong>Current quantity of vertex: {{ getNodeQuantity() }}</strong></p>
+          <p #qnty>
+            <strong>Current quantity of vertex: {{ getNodeQuantity() }}</strong>
+          </p>
         </div>
       </div>
       <!-- Vertex link creation -->
@@ -56,25 +54,14 @@
 
           <label for="text" style="margin-top: 5px"><strong>Weight: </strong></label>
           <div class="input-group">
-            <input
-              id="linkWeight"
-              type="number"
-              #linkWeight
-              class="form-control"
-              placeholder="Link weight"
-            />
-            <button
-              class="btn btn-dark"
-              type="button"
-              (click)="
+            <input id="linkWeight" type="number" #linkWeight class="form-control" placeholder="Link weight" />
+            <button class="btn btn-dark" type="button" (click)="
                 addVertexLink(
                   vertextSelectOrigin.value,
                   vertextSelectDestiny.value,
                   linkWeight.value
                 )
-              "
-              (click)="linkWeight.value = ''"
-            >
+              " (click)="linkWeight.value = ''">
               Insert
             </button>
           </div>
@@ -83,14 +70,73 @@
       <!-- File loading... -->
       <label for="graphFile" style="margin-top: 5px"><strong>Or load file</strong></label>
       <div class="input-group">
-        <input type="file" 
-        class="form-control" 
-        id="inputGroupFile04" 
-        aria-describedby="inputGroupFileAddon04" 
-        ria-label="Upload">
+        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+          ria-label="Upload" />
       </div>
     </form>
-    <div>NOUP.</div>
-    <div>JEJE</div>
+    <div>
+      <!-- Table headers and content. -->
+      <div class="d-flex justify-content-center">
+        <div class="card-dark">
+          <h2 class="card-title" style="padding: 15px">
+            <strong><em>Current State Table {{ this.currentStateTable }}</em></strong>
+          </h2>
+        </div>
+      </div>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th *ngFor="let v of vertex">{{ v }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of tableN">
+            <!-- <td>{{ lastVertex }}</td> -->
+            <td>{{ this.vertex[this.t] }}</td>
+            <td></td>
+            <td *ngFor="let val of row">
+              {{ val }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button type="button" class="btn btn-danger" (click)="getPrevStateTable()">
+          Previous
+        </button>
+        <button type="button" class="btn btn-success" (click)="getNextStateTable()">
+          Next
+        </button>
+      </div>
+    </div>
+    <div>
+      <div class="d-flex justify-content-center">
+        <div class="card-dark">
+          <h2 class="card-title" style="padding: 15px">
+            <strong><em>P Table</em></strong>
+            <table class="table table-dark">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th *ngFor="let v of vertex">{{ v }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of pTable">
+                  <td></td>
+                  <td></td>
+                  <td *ngFor="let val of row">
+                    {{ val }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </h2>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
