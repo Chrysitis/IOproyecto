@@ -21,14 +21,12 @@ export class shortestPathService {
 
   addVertex(newVertex: string) {
     this.vertex[this.vertexId] = newVertex;
-    console.log('VERTEX IS: ' + this.vertex);
     this.vertexId++;
     this.tableN = this.updateTableSize();
     this.pTable = this.updateTableSize();
   }
 
   addLink(vertexOrigin: string, vertexDestiny: string, weight: string) {
-    console.log('BEFORE' + this.tableN);
     this.tableN[this.vertex.indexOf(vertexOrigin)][
       this.vertex.indexOf(vertexDestiny)
     ] = parseInt(weight, 10);
@@ -36,21 +34,6 @@ export class shortestPathService {
       this.vertex.indexOf(vertexOrigin) * this.vertex.length +
         this.vertex.indexOf(vertexDestiny)
     ] = parseInt(weight, 10);
-    console.log('AFTER' + this.tableN);
-    console.log(this.tableN);
-    console.log(
-      'INDEXES ARE: ' +
-        this.vertex.indexOf(vertexOrigin) +
-        ' - ' +
-        this.vertex.indexOf(vertexDestiny)
-    );
-    console.log(
-      'MODIFIED POSITION WITH: ' +
-        this.tableN[this.vertex.indexOf(vertexOrigin)][
-          this.vertex.indexOf(vertexDestiny)
-        ]
-    );
-    console.log('ROW IS: ' + this.tableN[this.vertex.indexOf(vertexOrigin)]);
   }
 
   printVertex() {
@@ -78,9 +61,6 @@ export class shortestPathService {
   }
 
   updateTableSize() {
-    console.log(
-      '***************************** FILLING MATRIX *****************************'
-    );
     let newMatrix: number[][] = new Array();
     for (let i = 0; i < this.vertex.length; i++) {
       let row: number[] = new Array();
@@ -118,17 +98,10 @@ export class shortestPathService {
     pTable: number[][],
     state: number
   ) {
-    console.log(
-      '************************* ---------- FLOYD ALGORITHM ' +
-        'WITH K = ' +
-        state +
-        ' ---------- *************************'
-    );
     let k = state;
     let i;
     let j;
-    let p = state;
-    console.log('TABLE STATE: ' + p);
+    let p = state + 1;
     // Pick all vertices as source
     // one by one
     for (i = 0; i < stateTable.length; i++) {
@@ -140,12 +113,6 @@ export class shortestPathService {
         // the value of dist[i][j]
         if (stateTable[i][j] == -1) {
           if (stateTable[i][k] != -1 && stateTable[k][j] != -1) {
-            console.log(
-              'COMPARES TO -1. KEEPS THE OTHER NUMBER AND PUTS IT IN POS: ' +
-                i +
-                ' - ' +
-                j
-            );
             stateTable[i][j] = stateTable[i][k] + stateTable[k][j];
             pTable[i][j] = p;
           }
@@ -155,12 +122,6 @@ export class shortestPathService {
           stateTable[i][k] != -1 &&
           stateTable[i][j] != -1
         ) {
-          console.log(
-            'FOUND A SHORTER PATH. KEEPS THE NEW NUMBER AND PUTS IT IN POS: ' +
-              i +
-              ' - ' +
-              j
-          );
           stateTable[i][j] = stateTable[i][k] + stateTable[k][j];
           pTable[i][j] = p;
         }
