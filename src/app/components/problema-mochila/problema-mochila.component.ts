@@ -47,6 +47,9 @@ export class ProblemaMochilaComponent implements OnInit {
 
   setKnapsackCapacity(capacity: string) {
     let capacityNum = Number(capacity);
+    this.knapsack.setCapacity(capacityNum);
+    this.solutionMatrix = this.knapsack.getSolutionMatrix();
+    /*
     if (capacityNum <= 0 || capacityNum > 10) {
       this.messageSnackBar.open(
         'Knapsack capactiy must be between 1 and 10, inclusive',
@@ -66,6 +69,7 @@ export class ProblemaMochilaComponent implements OnInit {
         }
       );
     }
+    */
   }
 
   resetKnapsackCapacity() {
@@ -76,6 +80,6 @@ export class ProblemaMochilaComponent implements OnInit {
   }
 
   solve() {
-    //this.solutionMatrix = this.knapsack.knapsackProblem1_0();
+    this.solutionMatrix = this.knapsack.knapsackProblem1_0();
   }
 }

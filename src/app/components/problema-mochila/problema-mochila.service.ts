@@ -72,7 +72,6 @@ export class knapsackService {
     return newMatrix;
   }
 
-  /*
   knapsackProblem1_0() {
     let currentObject = 0;
     // Fill base cases. ( 0 capacity )
@@ -81,12 +80,41 @@ export class knapsackService {
     }
     while (currentObject < this.objectsQnty) {
       // Fill with the current object as soon at it fits.
-      for (let i = 0; i < this.objectsQnty; i++) {
-        this.solutionMatrix[i][currentObject] = this.objectsAttributes[currentObject][2];
+      for (let i = 1; i <= this.capacity; i++) {
+        if (i >= this.objectsAttributes[currentObject][2])
+          this.solutionMatrix[i][currentObject] =
+            this.objectsAttributes[currentObject][1];
       }
+
+      // If there is room for more than one object, it is replaced by this new value.
+      let accumulatedWeight = 0;
+      let accumulatedValue = 0;
+      for (let k = 0; k <= currentObject; k++) {
+        accumulatedWeight += this.objectsAttributes[k][2];
+        accumulatedValue += this.objectsAttributes[k][1];
+        for (let i = 1; i < this.capacity; i++) {
+          if (
+            accumulatedWeight <= i &&
+            this.solutionMatrix[i][currentObject] <= accumulatedValue
+          ) {
+            this.solutionMatrix[i][currentObject] = accumulatedValue;
+          } else {
+            accumulatedValue -= this.objectsAttributes[k][1];
+          }
+        }
+      }
+
+      // If the field of the previous column is higher, then it is replaced by said value.
+      for (let i = 1; i <= this.capacity; i++) {
+        for (let j = 1; j <= this.objectsQnty; j++) {
+          if (this.solutionMatrix[i][j] < this.solutionMatrix[i][j - 1]) {
+            this.solutionMatrix[i][j] = this.solutionMatrix[i][j - 1];
+          }
+        }
+      }
+      currentObject += 1;
     }
 
     return this.solutionMatrix;
   }
-  */
 }
