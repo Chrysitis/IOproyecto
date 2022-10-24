@@ -1,1 +1,123 @@
-<p>problema-mochila works!</p>
+<app-header></app-header>
+<div class="container-lg">
+
+  <!-- Page title -->
+  <div class="d-flex justify-content-center">
+    <div class="card-dark">
+      <h2 class="card-title" style="padding: 15px">
+        <strong><em>Knapsack problem: Combinatory problem</em></strong>
+      </h2>
+    </div>
+  </div>
+
+  <!-- Data insertion -->
+  <div class="d-flex justify-content-start">
+    <div d-flex flex-column mb-3>
+      <div class="d-flex justify-content-around" style="margin-top: 25px; width: 500px; padding-right: 50px;">
+        <form>
+          <div>
+            <div class="d-flex justify-content-center">
+              <div class="card-dark">
+                <h2 class="card-title" style="padding: 15px">
+                  <strong><em>Object insertion</em></strong>
+                </h2>
+              </div>
+            </div>
+            <label for="text" style="margin-top: 10px"><strong>Insert knapsack capacity</strong></label>
+            <div class="input-group mb-3" style="margin-top: 5px">
+              <input id="knapsackCapacityInput" type="number" #knapsackCapacityInput class="form-control"
+                placeholder="Capacity" />
+              <button class="btn btn-dark" type="button" id="applyKnapsackCapacityBtn" #applyKnapsackCapacityBtn
+                (click)="setKnapsackCapacity(knapsackCapacityInput.value)"
+                (click)="applyKnapsackCapacityBtn.disabled=true; addObjectBtn.disabled=false; resetKnapsackBtn.disabled=false; knapsackCapacityInput.disabled=true;">
+                Apply
+              </button>
+              <button class="btn btn-dark" type="button" id="resetKnapsackBtn" #resetKnapsackBtn [disabled]="true"
+                (click)="resetKnapsackCapacity()"
+                (click)="applyKnapsackCapacityBtn.disabled=true; addObjectBtn.disabled=false; applyKnapsackCapacityBtn.disabled=false; addObjectBtn.disabled=true; knapsackCapacityInput.value = ''; knapsackCapacityInput.disabled=false;">
+                Reset
+              </button>
+            </div>
+            <label for="text" style="margin-top: 10px"><strong>Insert Object</strong></label>
+            <div class="input-group mb-3" style="margin-top: 5px">
+              <input id="objectInput" type="text" #objectInput class="form-control" placeholder="Name" />
+              <input id="objectValueInput" type="number" #objectValueInput class="form-control" placeholder="Value" />
+              <input id="objectWeightInput" type="number" #objectWeightInput class="form-control"
+                placeholder="Weight" />
+              <button class="btn btn-dark" type="button" id="addObjectBtn" #addObjectBtn [disabled]="true"
+                (click)="addObject(objectInput.value, objectValueInput.value, objectWeightInput.value)"
+                (click)="objectInput.value = ''" (click)="objectValueInput.value = ''"
+                (click)="objectWeightInput.value = ''">
+                +
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- -->
+      <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column mb-3">
+          <div class="d-flex justify-content-center">
+            <div class="card-dark">
+              <h2 class="card-title" style="padding: 15px">
+                <strong><em>Objects attributes</em></strong>
+              </h2>
+            </div>
+          </div>
+          <table class="table table-dark" style="text-align: center; width: 25px;">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of objectsAttributes; index as i">
+                <td *ngFor="let val of row">
+                  {{ val }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- -->
+
+    <!-- Table headers and content. -->
+    <div class="d-flex flex-column mb-3">
+      <div class="d-flex justify-content-center">
+        <div class="card-dark">
+          <h2 class="card-title" style="padding: 15px">
+            <strong><em>Initial Table</em></strong>
+          </h2>
+        </div>
+      </div>
+      <table class="table table-dark" style="text-align: center;">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th *ngFor="let obj of objects">{{ obj }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of solutionMatrix; index as i">
+            <td> {{ i }} </td>
+            <td></td>
+            <td *ngFor="let val of row">
+              {{ val }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button type="button" class="btn btn-success" (click)="solve()">
+          Solve
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,7 +22,15 @@ import { shortestPathService } from './components/rutas-cortas/shortestPath.serv
     MenuComponent,
     HeaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, MatTableModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    MatTableModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+  ],
   providers: [shortestPathService],
   bootstrap: [AppComponent],
 })
