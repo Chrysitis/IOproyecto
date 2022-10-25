@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProblemaMochilaComponent implements OnInit {
   knapsack: knapsackService;
   solutionMatrix: any[][];
+  colorMatrix: any[][];
   objects: any[];
   objectsAttributes: any[][];
   errMessage: MatSnackBar;
@@ -17,6 +18,7 @@ export class ProblemaMochilaComponent implements OnInit {
   constructor(private messageSnackBar: MatSnackBar) {
     this.knapsack = new knapsackService();
     this.solutionMatrix = this.knapsack.getSolutionMatrix();
+    this.colorMatrix = this.knapsack.getColorMatrix();
     this.objects = this.knapsack.getObjects();
     this.objectsAttributes = this.knapsack.getObjectsAttributes();
     this.errMessage = messageSnackBar;
@@ -81,5 +83,16 @@ export class ProblemaMochilaComponent implements OnInit {
 
   solve() {
     this.solutionMatrix = this.knapsack.knapsackProblem1_0();
+    let array = [1, 2, 3, 4, 5, 6, 7];
+    var result = array.flatMap((v, i) => array.slice(i + 1).map((w) => v + w));
+
+    //console.log(this.subarray(array));
+    //array.push(10, 11, 12);
+    console.log(array);
+  }
+
+  getClassColor(i: number, j: number) {
+    //return this.colorMatrix[i][j];
+    return this.knapsack.getColorMatrix()[i][j];
   }
 }

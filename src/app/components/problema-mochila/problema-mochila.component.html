@@ -5,7 +5,7 @@
   <div class="d-flex justify-content-center">
     <div class="card-dark">
       <h2 class="card-title" style="padding: 15px">
-        <strong><em>Knapsack problem: Combinatory problem</em></strong>
+        <strong><em>Knapsack problem: 1/0 version</em></strong>
       </h2>
     </div>
   </div>
@@ -107,7 +107,7 @@
           <tr *ngFor="let row of solutionMatrix; index as i">
             <td> {{ i }} </td>
             <td></td>
-            <td *ngFor="let val of row">
+            <td *ngFor="let val of row; index as j" [ngClass]="getClassColor(i, j)">
               {{ val }}
             </td>
           </tr>
