@@ -13,6 +13,7 @@ import { ProblemaMochilaComponent } from './components/problema-mochila/problema
 import { MenuComponent } from './components/menu/menu.component';
 import { HeaderComponent } from './header/header.component';
 import { shortestPathService } from './components/rutas-cortas/shortestPath.service';
+import { EquipmentReplacementComponent } from './components/equipment-replacement/equipment-replacement.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { shortestPathService } from './components/rutas-cortas/shortestPath.serv
     ProblemaMochilaComponent,
     MenuComponent,
     HeaderComponent,
+    EquipmentReplacementComponent,
   ],
   imports: [
     BrowserModule,

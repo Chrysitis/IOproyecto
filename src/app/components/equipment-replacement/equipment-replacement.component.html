@@ -1,0 +1,76 @@
+<app-header></app-header>
+<div class="container-lg">
+
+  <!-- Page title -->
+
+  <div class="d-flex justify-content-center">
+    <div class="card-dark">
+      <h2 class="card-title" style="padding: 15px">
+        <strong><em>Equipment Replacement</em></strong>
+      </h2>
+    </div>
+  </div>
+
+  <!-- Data insertion -->
+  <div class="d-flex justify-content-start">
+    <div d-flex flex-column mb-3>
+      <div class="d-flex justify-content-around" style="margin-top: 25px; width: 500px; padding-right: 50px;">
+        <form>
+          <div>
+            <div class="d-flex justify-content-center">
+              <div class="card-dark">
+                <h2 class="card-title" style="padding: 15px">
+                  <strong><em>Data insertion</em></strong>
+                </h2>
+              </div>
+            </div>
+            <label for="text" style="margin-top: 10px"><strong>Insert term</strong></label>
+            <div class="input-group mb-3" style="margin-top: 5px">
+              <input id="termInput" type="number" #termInput class="form-control" placeholder="Term" />
+              <button class="btn btn-dark" type="button" id="termBtn" #termBtn (click)="setTerm(termInput.value)">
+                Apply
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column mb-3">
+          <div class="d-flex justify-content-center">
+            <div class="card-dark">
+              <h2 class="card-title" style="padding: 15px">
+                <strong><em>Planning Table</em></strong><br>
+                <strong style="font-size:medium"><em>Please, insert resale and maintenance price for each
+                    year.</em></strong>
+              </h2>
+            </div>
+          </div>
+          <table class="table table-dark" style="text-align: center; width:auto;">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Resale</th>
+                <th>Maintenance</th>
+              </tr>
+            </thead>
+            <tbody style="width: 75px;">
+              <tr *ngFor="let row of planningTable; index as i">
+                <td *ngFor="let val of row; index as j">
+                  <div *ngIf="j == 0">
+                    {{ val + 1}}
+                  </div>
+                  <div *ngIf="j == 1">
+                    <input id="termInput" type="number" #termInput class="form-control" placeholder="Resale" />
+                  </div>
+                  <div *ngIf="j == 2">
+                    <input id="termInput" type="number" #termInput class="form-control" placeholder="Maintenance" />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- -->
