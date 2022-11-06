@@ -14,6 +14,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { HeaderComponent } from './header/header.component';
 import { shortestPathService } from './components/rutas-cortas/shortestPath.service';
 import { EquipmentReplacementComponent } from './components/equipment-replacement/equipment-replacement.component';
+import { SeriesDeportivasComponent } from './components/series-deportivas/series-deportivas.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { EquipmentReplacementComponent } from './components/equipment-replacemen
     MenuComponent,
     HeaderComponent,
     EquipmentReplacementComponent,
+    SeriesDeportivasComponent,
   ],
   imports: [
     BrowserModule,

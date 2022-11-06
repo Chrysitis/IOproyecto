@@ -1,0 +1,111 @@
+<!-- Modal -->
+<app-header></app-header>
+
+<div class="container-lg">
+  <!-- Page title -->
+  <div class="d-flex justify-content-center">
+    <div class="card-dark">
+      <h2 class="card-title" style="padding: 15px">
+        <strong><em>Sport Series</em></strong>
+      </h2>
+    </div>
+  </div>
+
+  <!-- Data insertion -->
+  <div class="d-flex justify-content-start">
+    <div d-flex flex-column mb-3>
+      <div class="d-flex justify-content-around" style="margin-top: 25px; width: 500px; padding-right: 50px;">
+        <form>
+          <div>
+            <div class="d-flex justify-content-center">
+              <div class="card-dark">
+                <h2 class="card-title" style="padding: 15px">
+                  <strong><em>Data insertion</em></strong>
+                </h2>
+              </div>
+            </div>
+            <div class="probabilitySquareInfo">
+              <label for="text" style="margin-top: 10px"><strong>Probability of local victory for A</strong></label>
+              <div class="input-group mb-3" style="margin-top: 5px; width: 175px;">
+                <input id="pHomeWinningA" type="number" #pHomeWinningA class="form-control" placeholder="Probability" />
+                <button class="btn btn-dark" type="button" id="hpA" #hpA
+                  (click)="setHomeProbability(pHomeWinningA.value)">
+                  Set
+                </button>
+              </div>
+              <label for="text" style="margin-right: 10px"><strong>Probability of away victory for B: {{
+                  this.awayWinningProbB }}</strong></label>
+            </div>
+            <div class="probabilitySquareInfo">
+              <label for="text" style="margin-top: 10px"><strong>Probability of away victory for A</strong></label>
+              <div class="input-group mb-3" style="margin-top: 5px; width: 175px;">
+                <input id="pAwayWinningA" type="number" #pAwayWinningA class="form-control" placeholder="Probability" />
+                <button class="btn btn-dark" type="button" id="apA" #apA
+                  (click)="setAwayProbability(pAwayWinningA.value)">
+                  Set
+                </button>
+              </div>
+              <label for="text" style="margin-right: 10px"><strong>Probability of away victory for B: {{
+                  this.homeWinningProbB }}</strong></label>
+            </div>
+          </div>
+          <div class="probabilitySquareInfo">
+            <label for="text" style="margin-top: 10px"><strong>Max number of games</strong></label>
+            <div class="input-group mb-3" style="margin-top: 5px; width: 175px;">
+              <input id="gamesQnty" type="number" #gamesQnty class="form-control" placeholder="Games" />
+              <button class="btn btn-dark" type="button" id="gamesQntyBtn" #gamesQntyBtn
+                (click)="setGamesQuantity(gamesQnty.value)">
+                Set
+              </button>
+            </div>
+          </div>
+          <div class="probabilitySquareInfo">
+            <label for="text" style="margin-top: 10px"><strong>Series Format</strong></label>
+            <div class="input-group mb-3" style="margin-top: 5px; width: 175px;">
+              <button class="btn btn-dark green" type="button" id="termBtn" #casaBtn (click)="addHomeGame()">
+                Home
+              </button>
+              <button class="btn btn-dark red" type="button" id="termBtn" #visitaBtn (click)="addAwayGame()">
+                Away
+              </button>
+            </div>
+            <div>
+              <button class="btn btn-dark" type="button" id="termBtn" #termBtn *ngFor='let game of seriesFormat;'
+                [ngClass]="getColor(game)">
+                {{ game }}
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-dark" type="button" id="termBtn" #termBtn (click)="executeAlgo()">
+            Execute
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- PROBABILITIES TABLE -->
+    <div class="d-flex flex-column mb-3">
+      <div class="d-flex justify-content-center">
+        <div class="card-dark">
+          <h2 class="card-title" style="padding: 15px">
+            <strong><em>Initial Table</em></strong>
+          </h2>
+        </div>
+      </div>
+      <table class="table table-dark" style="text-align: center;">
+        <thead>
+          <th></th>
+          <th style="background-color:crimson" *ngFor="let row of probabilityMatrix; index as i">{{ i }}</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of probabilityMatrix; index as i">
+            <td style="background-color:crimson"> {{ i }}</td>
+            <td *ngFor="let val of row; index as j">
+              {{ val }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
