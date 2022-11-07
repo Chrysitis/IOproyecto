@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { seriesDeportivasService } from './series-deportivas.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-series-deportivas',
@@ -18,6 +19,8 @@ export class SeriesDeportivasComponent implements OnInit {
   awayWinningProbB: number;
   awayWinningProbA: number;
   homeWinningProbB: number;
+  fileContent: string;
+  fileInfo: any[];
   errMessage: MatSnackBar;
 
   constructor(private messageSnackBar: MatSnackBar) {
@@ -31,7 +34,9 @@ export class SeriesDeportivasComponent implements OnInit {
     this.awayWinningProbB = 0;
     this.awayWinningProbA = 0;
     this.homeWinningProbB = 0;
+    this.fileContent = '';
     this.errMessage = messageSnackBar;
+    this.fileInfo = new Array();
   }
 
   ngOnInit(): void {}
@@ -87,6 +92,39 @@ export class SeriesDeportivasComponent implements OnInit {
   executeAlgo() {
     this.probabilityMatrix =
       this.seriesDeportivas.executeSportSeriesAlgorithm();
+    this.saveFile();
+  }
+
+  chooseFile(event: any): void {
+    let fileList: FileList = event.target.files;
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let data: any;
+    let res = new Array();
+    let self = this;
+    fileReader.onloadend = function (x) {
+      data = fileReader.result;
+      let d = data.split('\n');
+      for (let i = 1; i < d.length; i++) {
+        let info = d[i].split('"');
+        //res.push(info[3]);
+        self.fileInfo.push(info[3]);
+      }
+    };
+    fileReader.readAsText(file);
+  }
+  uploadFile() {
+    this.setGamesQuantity(this.fileInfo[0]);
+    this.setHomeProbability(this.fileInfo[1]);
+    this.setAwayProbability(this.fileInfo[2]);
+    let format = this.fileInfo[3];
+    for (let c of format) {
+      if (c == 'H') {
+        this.addHomeGame();
+      } else {
+        this.addAwayGame();
+      }
+    }
   }
 
   getColor(game: String) {
@@ -94,5 +132,25 @@ export class SeriesDeportivasComponent implements OnInit {
       return 'green';
     }
     return 'red';
+  }
+
+  saveFile() {
+    let content = '{\n';
+    content += '"games":';
+    content += '"' + this.gamesQuantity + '",\n';
+    content += '"phwA":';
+    content += '"' + this.homeWinningProbA + '",\n';
+    content += '"pawA":';
+    content += '"' + this.awayWinningProbA + '",\n';
+    content += '"format": "';
+    for (let i = 0; i < this.seriesFormat.length; i++) {
+      content += this.seriesFormat[i];
+    }
+    content += '"\n}';
+    let FileSaver = require('file-saver');
+    let file = new File([content], 'data.json', {
+      type: 'text/plain;charset=utf-8',
+    });
+    FileSaver.saveAs(file);
   }
 }
