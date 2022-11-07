@@ -76,8 +76,17 @@
               </button>
             </div>
           </div>
-          <button class="btn btn-dark" type="button" id="termBtn" #termBtn (click)="executeAlgo()">
+          <button class="btn btn-dark" style="margin: 10px" type="button" id="execBtn" #execBtn
+            (click)="executeAlgo(); downloadBtn.disabled=false">
             Execute
+          </button>
+          <button class="btn btn-light" style="margin: 10px" type="button" id="resetBtn" #resetBtn
+            (click)="resetConfiguration()">
+            Reset
+          </button>
+          <button class="btn btn-light" type="button" id="downloadBtn" #downloadBtn (click)="downloadConfiguration()"
+            [disabled]="true">
+            Download config
           </button>
         </form>
       </div>
@@ -106,6 +115,9 @@
           </tr>
         </tbody>
       </table>
+      <label for="text" style="margin-top: 10px"><strong>Probability of A's victory is: {{ this.probabilityA
+          }}</strong></label>
+
     </div>
 
     <div class="input-container">

@@ -13,13 +13,12 @@ export class SeriesDeportivasComponent implements OnInit {
   gamesQuantity: number;
   probabilityMatrix: any[][];
   seriesFormat: any[];
-  winningProbA: number;
   formatCount: number;
+  probabilityA: number;
   homeWinningProbA: number;
   awayWinningProbB: number;
   awayWinningProbA: number;
   homeWinningProbB: number;
-  fileContent: string;
   fileInfo: any[];
   errMessage: MatSnackBar;
 
@@ -28,13 +27,12 @@ export class SeriesDeportivasComponent implements OnInit {
     this.gamesQuantity = 0;
     this.probabilityMatrix = new Array();
     this.seriesFormat = new Array();
-    this.winningProbA = 0;
     this.formatCount = 0;
+    this.probabilityA = 0;
     this.homeWinningProbA = 0;
     this.awayWinningProbB = 0;
     this.awayWinningProbA = 0;
     this.homeWinningProbB = 0;
-    this.fileContent = '';
     this.errMessage = messageSnackBar;
     this.fileInfo = new Array();
   }
@@ -92,7 +90,8 @@ export class SeriesDeportivasComponent implements OnInit {
   executeAlgo() {
     this.probabilityMatrix =
       this.seriesDeportivas.executeSportSeriesAlgorithm();
-    this.saveFile();
+    let kGames = Math.floor(this.gamesQuantity / 2) + 1;
+    this.probabilityA = this.probabilityMatrix[kGames][kGames];
   }
 
   chooseFile(event: any): void {
@@ -102,49 +101,21 @@ export class SeriesDeportivasComponent implements OnInit {
     let data: any;
     let res = new Array();
     let self = this;
+    // Parses file and extracts the important information: games quantity, probabilities and format.
     fileReader.onloadend = function (x) {
       data = fileReader.result;
       let d = data.split('\n');
       for (let i = 1; i < d.length; i++) {
         let info = d[i].split('"');
-        //res.push(info[3]);
         self.fileInfo.push(info[3]);
       }
     };
     fileReader.readAsText(file);
-  }
-  uploadFile() {
-    this.setGamesQuantity(this.fileInfo[0]);
-    this.setHomeProbability(this.fileInfo[1]);
-    this.setAwayProbability(this.fileInfo[2]);
-    let format = this.fileInfo[3];
-    for (let c of format) {
-      if (c == 'H') {
-        this.addHomeGame();
-      } else {
-        this.addAwayGame();
-      }
-    }
   }
 
-  chooseFile(event: any): void {
-    let fileList: FileList = event.target.files;
-    let file = fileList[0];
-    let fileReader: FileReader = new FileReader();
-    let data: any;
-    let res = new Array();
-    let self = this;
-    fileReader.onloadend = function (x) {
-      data = fileReader.result;
-      let d = data.split('\n');
-      for (let i = 1; i < d.length; i++) {
-        let info = d[i].split('"');
-        //res.push(info[3]);
-        self.fileInfo.push(info[3]);
-      }
-    };
-    fileReader.readAsText(file);
-  }
+  /**
+   * Uploads file chosen and sets the program with configuration it contains.
+   */
   uploadFile() {
     this.setGamesQuantity(this.fileInfo[0]);
     this.setHomeProbability(this.fileInfo[1]);
@@ -166,6 +137,9 @@ export class SeriesDeportivasComponent implements OnInit {
     return 'red';
   }
 
+  /**
+   * Creates a file with the algorithm configuration and saves it in .json syntax.
+   */
   saveFile() {
     let content = '{\n';
     content += '"games":';
@@ -180,9 +154,25 @@ export class SeriesDeportivasComponent implements OnInit {
     }
     content += '"\n}';
     let FileSaver = require('file-saver');
-    let file = new File([content], 'data.json', {
+    let file = new File([content], 'seriesDeportivas.json', {
       type: 'text/plain;charset=utf-8',
     });
     FileSaver.saveAs(file);
+  }
+
+  downloadConfiguration() {
+    this.saveFile();
+  }
+  resetConfiguration() {
+    this.gamesQuantity = 0;
+    this.homeWinningProbA = 0;
+    this.homeWinningProbB = 0;
+    this.awayWinningProbA = 0;
+    this.awayWinningProbB = 0;
+    this.seriesFormat.length = 0;
+    this.formatCount = 0;
+    this.probabilityMatrix.length = 0;
+    this.fileInfo.length = 0;
+    this.probabilityA = 0;
   }
 }
