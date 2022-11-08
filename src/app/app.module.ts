@@ -15,6 +15,8 @@ import { HeaderComponent } from './header/header.component';
 import { shortestPathService } from './components/rutas-cortas/shortestPath.service';
 import { EquipmentReplacementComponent } from './components/equipment-replacement/equipment-replacement.component';
 import { SeriesDeportivasComponent } from './components/series-deportivas/series-deportivas.component';
+import { SearchBinaryTreesComponent } from './components/search-binary-trees/search-binary-trees.component';
+import { MatrixMultiplicationComponent } from './components/matrix-multiplication/matrix-multiplication.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { SeriesDeportivasComponent } from './components/series-deportivas/series
     HeaderComponent,
     EquipmentReplacementComponent,
     SeriesDeportivasComponent,
+    SearchBinaryTreesComponent,
+    MatrixMultiplicationComponent,
   ],
   imports: [
     BrowserModule,
