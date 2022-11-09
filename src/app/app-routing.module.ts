@@ -8,6 +8,8 @@ import { ProblemaMochilaComponent } from './components/problema-mochila/problema
 import { shortestPathComponent } from './components/rutas-cortas/shortestPath.component';
 import { EquipmentReplacementComponent } from './components/equipment-replacement/equipment-replacement.component';
 import { SeriesDeportivasComponent } from './components/series-deportivas/series-deportivas.component';
+import { SearchBinaryTreesComponent } from './components/search-binary-trees/search-binary-trees.component';
+import { MatrixMultiplicationComponent } from './components/matrix-multiplication/matrix-multiplication.component';
 
 const routes: Routes = [
   { path: '', component: MenuComponent },
@@ -15,7 +17,10 @@ const routes: Routes = [
   { path: 'shortestPath', component: shortestPathComponent },
   { path: 'equipmentReplacement', component: EquipmentReplacementComponent },
   { path: 'series-deportivas', component: SeriesDeportivasComponent },
+  { path: 'search-binary-trees', component: SearchBinaryTreesComponent},
+  { path: 'matrix-multiplication', component: MatrixMultiplicationComponent},
   { path: '**', redirectTo: '', pathMatch: 'full' },
+
 ];
 
 @NgModule({

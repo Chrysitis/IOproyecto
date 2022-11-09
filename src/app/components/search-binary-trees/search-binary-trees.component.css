@@ -1,0 +1,15 @@
+.probabilitySquareInfo {
+    margin: 5px;
+    padding: 10px;
+    border-width: 1px;
+    border-style: double;
+    border-color:darkblue;
+  }
+  
+  .green {
+    background-color: green;
+  }
+  
+  .red {
+    background-color: red;
+  }
