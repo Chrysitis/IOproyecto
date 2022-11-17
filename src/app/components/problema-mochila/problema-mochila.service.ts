@@ -63,6 +63,10 @@ export class knapsackService {
     this.solutionMatrix = this.setMatrixSize();
   }
 
+  getCapacity() {
+    return this.capacity;
+  }
+
   resetAttributes() {
     //this.objects.forEach(this.objects.pop());
     this.objects.length = 0;

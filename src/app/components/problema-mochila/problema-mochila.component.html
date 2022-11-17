@@ -114,9 +114,17 @@
         </tbody>
       </table>
       <div>
-        <button type="button" class="btn btn-success" (click)="solve()">
+        <button type="button" class="btn btn-success" (click)="solve(); downloadBtn.disabled=false">
           Solve
         </button>
+        <button class="btn btn-light" type="button" id="downloadBtn" #downloadBtn [disabled]="true"
+          (click)="saveFile()">
+          Download config
+        </button>
+        <div class="input-container">
+          <input type="file" (change)="chooseFile($event)" name="">
+          <button (click)="uploadFile()" class="button-colored">Load</button>
+        </div>
       </div>
     </div>
   </div>

@@ -21,6 +21,7 @@ export class shortestPathComponent implements OnInit {
   t: number;
   currentStateTable: number;
   fileToUpload: File | null = null;
+  fileInfo: any[];
 
   constructor(graph: shortestPathService) {
     this.graph = new shortestPathService();
@@ -33,6 +34,7 @@ export class shortestPathComponent implements OnInit {
     this.currentStateTable = 0;
     this.res = new Array();
     this.stateTables = new Array();
+    this.fileInfo = new Array();
   }
 
   ngOnInit(): void {}
@@ -87,6 +89,66 @@ export class shortestPathComponent implements OnInit {
       this.currentStateTable = state.getState();
       this.tableN = state.getStateTable();
       this.pTable = state.getPTable();
+    }
+  }
+
+  chooseFile(event: any): void {
+    let fileList: FileList = event.target.files;
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let data: any;
+    let res = new Array();
+    let self = this;
+    // Parses file and extracts the important information: games quantity, probabilities and format.
+    fileReader.onloadend = function (x) {
+      data = fileReader.result;
+      let d = data.split('\n');
+      console.log('SPLIT BY \\n: ' + d);
+      for (let i = 1; i < d.length; i++) {
+        let info = d[i].split('"');
+        console.log('SPLIT BY \\": ' + info);
+        self.fileInfo.push(info[3]);
+      }
+    };
+    fileReader.readAsText(file);
+  }
+
+  uploadFile() {
+    let limitvertex = this.fileInfo[0].length;
+    let limitlinks = this.fileInfo[1].length;
+    let i1 = 0;
+    let i2 = 0;
+    while (i1 < limitvertex) {
+      if (this.fileInfo[0][i1] != undefined) {
+        this.addVertex(this.fileInfo[0][i1]);
+      }
+      i1++;
+    }
+    while (i2 < limitlinks) {
+      if (this.fileInfo[1][i2] != undefined) {
+        if (
+          !isNaN(this.fileInfo[1][i2 + 2]) &&
+          !isNaN(this.fileInfo[1][i2 + 3])
+        ) {
+          console.log('Is a number');
+          this.addVertexLink(
+            this.fileInfo[1][i2],
+            this.fileInfo[1][i2 + 1],
+            this.fileInfo[1][i2 + 2] + this.fileInfo[1][i2 + 3]
+          );
+          i2 = i2 + 4;
+          continue;
+        }
+        if (isNaN(this.fileInfo[1][i2 + 3])) {
+          console.log('NaN');
+          this.addVertexLink(
+            this.fileInfo[1][i2],
+            this.fileInfo[1][i2 + 1],
+            this.fileInfo[1][i2 + 2]
+          );
+          i2 = i2 + 3;
+        }
+      }
     }
   }
 

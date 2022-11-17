@@ -67,13 +67,13 @@
           </div>
         </div>
       </div>
-      <!-- File loading... -->
-      <label for="graphFile" style="margin-top: 5px"><strong>Or load file</strong></label>
-      <div class="input-group">
-        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-          ria-label="Upload" />
-      </div>
     </form>
+    <!-- File loading... -->
+    <label for="graphFile" style="margin-top: 5px"><strong>Or load file</strong></label>
+    <div class="input-container">
+      <input type="file" (change)="chooseFile($event)" name="">
+      <button (click)="uploadFile()" class="button-colored">Load</button>
+    </div>
     <div>
       <!-- Table headers and content. -->
       <div class="d-flex justify-content-center">

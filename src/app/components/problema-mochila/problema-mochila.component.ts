@@ -14,6 +14,7 @@ export class ProblemaMochilaComponent implements OnInit {
   objects: any[];
   objectsAttributes: any[][];
   errMessage: MatSnackBar;
+  fileInfo: any[];
 
   constructor(private messageSnackBar: MatSnackBar) {
     this.knapsack = new knapsackService();
@@ -22,6 +23,7 @@ export class ProblemaMochilaComponent implements OnInit {
     this.objects = this.knapsack.getObjects();
     this.objectsAttributes = this.knapsack.getObjectsAttributes();
     this.errMessage = messageSnackBar;
+    this.fileInfo = new Array();
   }
 
   ngOnInit(): void {}
@@ -94,5 +96,90 @@ export class ProblemaMochilaComponent implements OnInit {
   getClassColor(i: number, j: number) {
     //return this.colorMatrix[i][j];
     return this.knapsack.getColorMatrix()[i][j];
+  }
+  chooseFile(event: any): void {
+    let fileList: FileList = event.target.files;
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let data: any;
+    let res = new Array();
+    let self = this;
+    // Parses file and extracts the important information: games quantity, probabilities and format.
+    fileReader.onloadend = function (x) {
+      data = fileReader.result;
+      let d = data.split('\n');
+      console.log('SPLIT BY \\n: ' + d);
+      for (let i = 1; i < d.length; i++) {
+        let info = d[i].split('"');
+        console.log('SPLIT BY \\": ' + info);
+        self.fileInfo.push(info[3]);
+      }
+    };
+    fileReader.readAsText(file);
+  }
+
+  /**
+   * Uploads file chosen and sets the program with configuration it contains.
+   */
+  uploadFile() {
+    console.log('DATA FROM JSON: ' + this.fileInfo);
+    this.setKnapsackCapacity(this.fileInfo[1]);
+    //this.insertMatrix(dimensions[0], dimensions[2]);
+    let limit = this.fileInfo.length;
+    let i = 4;
+    while (i < limit) {
+      if (this.fileInfo[i] != '') {
+        this.addObject(
+          this.fileInfo[i],
+          this.fileInfo[i + 1],
+          this.fileInfo[i + 2]
+        );
+        i += 5;
+      }
+    }
+    //this.executeAlgo();
+  }
+
+  /**
+   * Creates a file with the algorithm configuration and saves it in .json syntax.
+   */
+  saveFile() {
+    let content = '[\n{\n';
+    content += '"capacity":';
+    content += '"' + this.knapsack.getCapacity() + '"';
+    content += '\n},';
+    for (let i = 0; i < this.objectsAttributes.length - 1; i++) {
+      content += '\n{\n';
+      content += '"name":';
+      content += '"' + this.objectsAttributes[i][0] + '",\n';
+      content += '"value":';
+      content += '"' + this.objectsAttributes[i][1] + '",\n';
+      content += '"weight":';
+      content += '"' + this.objectsAttributes[i][2];
+      content += '"\n},';
+    }
+    content += '\n{\n';
+    content += '"name":';
+    content +=
+      '"' +
+      this.objectsAttributes[this.objectsAttributes.length - 1][0] +
+      '",\n';
+    content += '"value":';
+    content +=
+      '"' +
+      this.objectsAttributes[this.objectsAttributes.length - 1][1] +
+      '",\n';
+    content += '"weight":';
+    content +=
+      '"' + this.objectsAttributes[this.objectsAttributes.length - 1][2];
+    content += '"\n}\n]';
+    let FileSaver = require('file-saver');
+    let file = new File([content], 'knapsack.json', {
+      type: 'text/plain;charset=utf-8',
+    });
+    FileSaver.saveAs(file);
+  }
+  downloadConfiguration() {
+    this.saveFile();
   }
 }

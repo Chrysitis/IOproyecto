@@ -3,12 +3,16 @@ export class MatrixMultiplicationService {
   pTable: any[][];
   matrixQuantity: number;
   dimensions: any[];
+  multPairing: string;
+  iMatrix: number;
 
   constructor() {
     this.mTable = new Array();
     this.pTable = new Array();
     this.matrixQuantity = 0;
     this.dimensions = new Array();
+    this.multPairing = '';
+    this.iMatrix = 0;
   }
 
   getMTable() {
@@ -25,7 +29,9 @@ export class MatrixMultiplicationService {
 
   addDimension(dimension: number) {
     this.dimensions.push(dimension);
-    this.matrixQuantity += 1;
+    this.multPairing += 'A' + String(this.iMatrix + 1);
+    console.log('MULTIPLICATION PAIRING IS: ' + this.multPairing);
+    this.iMatrix += 1;
   }
 
   getMatrixQuantity() {
