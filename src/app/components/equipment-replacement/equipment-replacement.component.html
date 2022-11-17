@@ -51,6 +51,10 @@
           <button class="btn btn-dark" type="button" id="termBtn" #termBtn (click)="executeERAlgo()">
             Execute
           </button>
+          <button class="btn btn-light" type="button" id="downloadBtn" #downloadBtn [disabled]="true"
+            (click)="saveFile()">
+            Download config
+          </button>
         </form>
       </div>
 
@@ -108,6 +112,10 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="input-container">
+      <input type="file" (change)="chooseFile($event)" name="">
+      <button (click)="uploadFile(); downloadBtn.disabled=false" class="button-colored">Load</button>
     </div>
   </div>
 </div>

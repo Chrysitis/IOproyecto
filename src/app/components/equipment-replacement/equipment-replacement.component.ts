@@ -19,6 +19,7 @@ export class EquipmentReplacementComponent implements OnInit {
   expectancy: number;
   currentYear: number;
   errMessage: MatSnackBar;
+  fileInfo: any[];
 
   constructor(private messageSnackBar: MatSnackBar) {
     this.ERService = new equipmentReplacementService();
@@ -32,6 +33,7 @@ export class EquipmentReplacementComponent implements OnInit {
     this.term = 0;
     this.expectancy = 0;
     this.errMessage = messageSnackBar;
+    this.fileInfo = new Array();
   }
 
   ngOnInit(): void {}
@@ -68,5 +70,86 @@ export class EquipmentReplacementComponent implements OnInit {
     );
     console.log('COST TABLE IS: ' + this.costsTable);
     this.replacementPlanTable = this.ERService.equipmentReplacementAlgo();
+  }
+
+  chooseFile(event: any): void {
+    let fileList: FileList = event.target.files;
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let data: any;
+    let res = new Array();
+    let self = this;
+    // Parses file and extracts the important information: games quantity, probabilities and format.
+    fileReader.onloadend = function (x) {
+      data = fileReader.result;
+      let d = data.split('\n');
+      console.log('SPLIT BY \\n: ' + d);
+      for (let i = 1; i < d.length; i++) {
+        let info = d[i].split('"');
+        console.log('SPLIT BY \\": ' + info);
+        self.fileInfo.push(info[3]);
+      }
+    };
+    fileReader.readAsText(file);
+  }
+
+  /**
+   * Uploads file chosen and sets the program with configuration it contains.
+   */
+  uploadFile() {
+    console.log('DATA FROM JSON: ' + this.fileInfo);
+    let i = 6;
+    let limit = this.fileInfo.length;
+    this.setTables(this.fileInfo[1], this.fileInfo[2], this.fileInfo[3]);
+
+    while (i < limit) {
+      if (this.fileInfo[i] != '') {
+        console.log(
+          'OBJECT ATTRIBUTES ARE: ' +
+            this.fileInfo[i] +
+            ' - ' +
+            this.fileInfo[i + 1]
+        );
+        this.setYearValues(this.fileInfo[i], this.fileInfo[i + 1]);
+        i += 3;
+      }
+      i++;
+    }
+    this.executeERAlgo();
+  }
+  /**
+   * Creates a file with the algorithm configuration and saves it in .json syntax.
+   */
+  saveFile() {
+    let content = '[\n{\n';
+    content += '"cost":';
+    content += '"' + this.cost + '",\n';
+    content += '"term":"';
+    content += this.term + '",\n';
+    content += '"expectancy":';
+    content += '"' + this.expectancy + '"';
+    content += '\n},';
+    for (let i = 0; i < this.resaleTable.length - 1; i++) {
+      content += '\n{\n';
+      content += '"resale":';
+      content += '"' + this.resaleTable[i] + '",\n';
+      content += '"maintenance":';
+      content += '"' + this.maintenanceTable[i];
+      content += '"\n},';
+    }
+    content += '\n{\n';
+    content += '"resale":';
+    content += '"' + this.resaleTable[this.resaleTable.length - 1] + '",\n';
+    content += '"maintenance":';
+    content += '"' + this.maintenanceTable[this.maintenanceTable.length - 1];
+    content += '"\n}\n]';
+    let FileSaver = require('file-saver');
+    let file = new File([content], 'equipmentReplacement.json', {
+      type: 'text/plain;charset=utf-8',
+    });
+    FileSaver.saveAs(file);
+  }
+  downloadConfiguration() {
+    this.saveFile();
   }
 }
